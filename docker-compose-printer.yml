@@ -1,0 +1,13 @@
+version: "3"
+services:
+  printer:
+    build:
+        context: ./mrc-hardware
+        dockerfile: Dockerfile.printer
+    container_name: mrc_printer
+    hostname: mrc_printer
+    environment:
+        - MQTT_HOST=mosquitto
+    privileged: true
+    command: python3 /printer/printer.py
+    restart: always

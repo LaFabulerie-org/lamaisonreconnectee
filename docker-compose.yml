@@ -1,0 +1,32 @@
+version: "3"
+services:
+  mosquitto:
+    build:
+        context: .
+        dockerfile: Dockerfile.mosquitto
+    container_name: mrc_mosquitto
+    hostname: mrc_mosquitto
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    restart: always
+  pigpiod:
+    image: zinen2/alpine-pigpiod
+    hostname: mrc_pigpiod
+    container_name: mrc_pigpiod
+    privileged: true
+    ports:
+      - "8888:8888"
+    restart: always
+#   hardware:
+#     build:
+#         context: .
+#         dockerfile: Dockerfile.hardware
+#     container_name: mrc_hardware
+#     hostname: mrc_hardware
+#     privileged: true
+#     depends_on:
+#       - mosquitto
+#       - pigpiod
+#     command: python3 /hw/main.py
+#     restart: always
