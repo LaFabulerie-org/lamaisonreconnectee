@@ -2,7 +2,7 @@ version: "3"
 services:
   mosquitto:
     build:
-        context: .
+        context: ./mrc-hardware
         dockerfile: Dockerfile.mosquitto
     container_name: mrc_mosquitto
     hostname: mrc_mosquitto
