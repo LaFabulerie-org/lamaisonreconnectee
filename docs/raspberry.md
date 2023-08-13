@@ -115,6 +115,8 @@ sudo nano /boot/config.txt
     dtoverlay=i2c-gpio,bus=4,i2c_gpio_delay_us=1,i2c_gpio_sda=21,i2c_gpio_scl=13
 ```
 
+Récupérer le code source
+
 ```bash
 git clone https://gitlab.com/maison-reconnectee/mrc.git
 cd mrc
@@ -135,7 +137,6 @@ Démarrer les conteneurs Docker :
 ```bash
 docker-compose -f docker-compose-rasp.yml up -d
 ```
-
 
 # Mettre à jour l'application :
 
