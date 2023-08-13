@@ -120,6 +120,8 @@ git clone https://gitlab.com/maison-reconnectee/mrc.git
 cd mrc
 git submodule init
 git submodule update
+git submodule foreach 'git checkout master'
+git submodule foreach 'git pull origin  master'
 ```
 
 Construire les images Docker :
