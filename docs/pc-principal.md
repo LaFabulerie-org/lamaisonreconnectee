@@ -65,5 +65,12 @@ Le reste de la configuration se fait via l'interface web de CUPS : http://localh
 - Créer le fichier `src/environments/environment.ts` à la racine du répertoire `mrc-frontend` en se basant sur le fichier `src/environments/environment.example.ts`
 
 ```bash
+docker-compose -f docker-compose-pc.yml build
+docker-compose -f docker-compose-pc.yml up -d
+```
 
+# Création d'un super-utilisateur pour se connecter à l'interface d'administration 
 
+```bash
+docker-compose -f docker-compose-pc.yml run mrc_backend python manage.py createsuperuser
+```
