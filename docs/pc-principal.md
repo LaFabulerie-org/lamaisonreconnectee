@@ -23,6 +23,13 @@ git submodule foreach 'git pull origin  master'
 
 # Installation de l'imprimante thermique
 
+Dans notre cas, il s'agit d'une imprimante UNIKA UK56007 compatible avec le protocol ESC/POS.
+
+```bash
+lsusb
+Bus 001 Device 045: ID 1fc9:2016 NXP Semiconductors USB Printer
+```
+
 Éditer le fichier `/etc/udev/rules.d/99-escpos.rules`
 
 ```bash
@@ -36,6 +43,7 @@ SUBSYSTEM=="usb", ATTR{idVendor}=="1fc9", ATTR{idProduct}=="2016", MODE="0666", 
 ```
 
 L'idVendor et idProduct sont à adapter en fonction de votre imprimante. Vous les obtenir en lançant la commande `lsusb` et en repérant la ligne correspondant à votre imprimante.
+Ces valeurs devront aussi être renseignées dans le fichier `docker-compose-pc.yml` dans la section `devices` du service `mrc_printer`.
 
 Redémarrer udev :
 
@@ -59,6 +67,9 @@ Le reste de la configuration se fait via l'interface web de CUPS : http://localh
 ```bash
 ```
 
+Installation de [DockStation](https://dockstation.io/)
+
+
 # Installation de l'application
 
 - Créer le fichier `.env` à la racine du répertoire `mrc-backend` en se basant sur le fichier `.env.example`
@@ -69,8 +80,9 @@ docker-compose -f docker-compose-pc.yml build
 docker-compose -f docker-compose-pc.yml up -d
 ```
 
-# Création d'un super-utilisateur pour se connecter à l'interface d'administration 
+## Création d'un super-utilisateur pour se connecter à l'interface d'administration 
 
 ```bash
 docker-compose -f docker-compose-pc.yml run mrc_backend python manage.py createsuperuser
 ```
+Attention, le nom d'utilisateur et l'email doivent etre identique.
