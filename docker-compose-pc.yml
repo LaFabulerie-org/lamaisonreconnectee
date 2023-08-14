@@ -8,6 +8,8 @@ services:
     hostname: mrc_printer
     environment:
       - MQTT_HOST=10.3.141.1
+      - PRINTER_VENDOR_ID=1fc9
+      - PRINTER_PRODUCT_ID=2016
     privileged: true
     command: python3 /printer/printer.py
     restart: always
@@ -18,7 +20,7 @@ services:
     hostname: mrc_frontend
     restart: always
     volumes:
-      - front_dist:/app
+      - front_dist_b2:/app
   mrc_backend:
     build:
       context: ./mrc-backend
@@ -40,7 +42,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./nginx.django.conf:/etc/nginx/conf.d/django.conf
       - ./nginx.angular.conf:/etc/nginx/conf.d/angular.conf
-      - front_dist:/var/www/html/front/dist
+      - front_dist_b2:/var/www/html/front/dist
       - back_static:/var/www/html/back/static
       - back_media:/var/www/html/back/media
     ports:
@@ -48,6 +50,6 @@ services:
       - '8000:8000'
     restart: always
 volumes:
-  front_dist: null
+  front_dist_b2: null
   back_static: null
   back_media: null
