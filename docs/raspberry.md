@@ -48,6 +48,10 @@ Dans l'onglet `Hotspot` :
 
 Connecter le Raspberry à Internet soit en Ethernet (cable RJ45), soit en Wi-Fi via l'onglet `Wifi Client` de RaspAP.
 
+Si vous avez choisi de vous connecter en Wi-Fi a Internet, il faut configurer la priorité des connexions Wi-Fi dans l'onglet `DHCP Server`. 
+Mettre `305` dans le champs `Metric`  et redémarrer le raspberry.
+
+
 # Installation de Docker
 
 ```bash
