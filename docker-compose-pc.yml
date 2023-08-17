@@ -21,6 +21,7 @@ services:
     restart: always
     volumes:
       - front_dist_b2:/app
+      - back_media:/app/assets/media
   mrc_backend:
     build:
       context: ./mrc-backend
