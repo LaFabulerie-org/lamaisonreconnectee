@@ -20,12 +20,8 @@ services:
     hostname: mrc_frontend
     restart: always
     volumes:
-<<<<<<< Updated upstream
-      - front_dist_b2:/app
       - back_media:/app/assets/media
-=======
-      - front_dist_b3:/app
->>>>>>> Stashed changes
+      - front_dist_b4:/app
   mrc_backend:
     build:
       context: ./mrc-backend
@@ -47,7 +43,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./nginx.django.conf:/etc/nginx/conf.d/django.conf
       - ./nginx.angular.conf:/etc/nginx/conf.d/angular.conf
-      - front_dist_b3:/var/www/html/front/dist
+      - front_dist_b4:/var/www/html/front/dist
       - back_static:/var/www/html/back/static
       - back_media:/var/www/html/back/media
     ports:
@@ -55,6 +51,6 @@ services:
       - '8000:8000'
     restart: always
 volumes:
-  front_dist_b3: null
+  front_dist_b4: null
   back_static: null
   back_media: null
