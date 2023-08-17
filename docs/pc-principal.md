@@ -78,13 +78,6 @@ Ne pas oublier d'ajouter l'utilisateur `mrc` au groupe `docker` :
 sudo usermod -aG docker mrc
 ```
 
-Installation de [DockStation](https://dockstation.io/)
-
-```bash
-wget https://github.com/DockStation/dockstation/releases/download/v1.5.1/dockstation_1.5.1_amd64.deb
-sudo apt install ./dockstation_1.5.1_amd64.deb
-```
-
 # Installation de l'application
 
 - Créer le fichier `.env` à la racine du répertoire `mrc-backend` en se basant sur le fichier `.env.example`
