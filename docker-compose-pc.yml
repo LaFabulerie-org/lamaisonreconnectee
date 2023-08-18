@@ -19,9 +19,10 @@ services:
     container_name: mrc_frontend
     hostname: mrc_frontend
     restart: always
+    tty: true
     volumes:
-      - back_media:/app/assets/media
       - front_dist_b4:/app
+
   mrc_backend:
     build:
       context: ./mrc-backend
