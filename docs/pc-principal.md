@@ -80,7 +80,7 @@ sudo usermod -aG docker mrc
 
 # Installation de l'application
 
-- Créer le fichier `.env` à la racine du répertoire `mrc-backend` en se basant sur le fichier `.env.example`
+- Créer le fichier `.env.standalone` à la racine du répertoire `mrc-backend` en se basant sur le fichier `.env.example`
 - Créer le fichier `src/environments/environment.ts` à la racine du répertoire `mrc-frontend` en se basant sur le fichier `src/environments/environment.example.ts`
 
 ```bash

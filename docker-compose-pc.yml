@@ -16,16 +16,19 @@ services:
   mrc_frontend:
     build:
       context: ./mrc-frontend
+      args:
+        STAGE: standalone
     container_name: mrc_frontend
     hostname: mrc_frontend
     restart: always
     tty: true
     volumes:
       - front_dist_b4:/app
-
   mrc_backend:
     build:
       context: ./mrc-backend
+      args:
+        STAGE: standalone
     container_name: mrc_backend
     hostname: mrc_backend
     volumes:
@@ -36,10 +39,12 @@ services:
       - '8080:8080'
     restart: always
   mrc_nginx:
-    image: fholzer/nginx-brotli
+    build:
+      context: ./mrc-nginx
+      args:
+        STAGE: standalone
     container_name: mrc_nginx
     hostname: mrc_nginx
-
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./nginx.django.conf:/etc/nginx/conf.d/django.conf
