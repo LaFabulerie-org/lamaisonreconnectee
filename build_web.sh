@@ -1,8 +1,8 @@
 #!/bin/bash
 
-BACK=0.5
-FRONT=0.2
-NGINX=0.3
+BACK=0.14
+FRONT=0.7
+NGINX=0.7
 
 docker build --build-arg="STAGE=web" -t mrc_web_backend:${BACK} mrc-backend
 docker tag mrc_web_backend:${BACK} registry.gitlab.com/maison-reconnectee/mrc/mrc_web_backend:${BACK}
