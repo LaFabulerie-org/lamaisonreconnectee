@@ -1,11 +1,11 @@
 version: '3'
 services:
   mrc_sftp:
-    image: registry.getcaas.io/library/sftp:0.0.1
+    image: 'registry.getcaas.io/library/sftp:0.0.1'
     command: 'mrcsftp:3ZYSxuJu6S:33'
     volumes:
-      - mrc_back_media:/var/www/html/back/media
-      - mrc_back_db:/var/www/html/db
+      - 'mrc_back_media:/var/www/html/back/media'
+      - 'mrc_back_db:/var/www/html/db'
     environment:
       - SSH_PROXY_USER=mrcsftp
       - SSH_REDIRECT_USER=mrcsftp
@@ -13,33 +13,33 @@ services:
       - mrc_network
       - proxy
   mrc_backend:
-    image: registry.gitlab.com/maison-reconnectee/mrc/mrc_web_backend:0.14
+    image: 'registry.gitlab.com/maison-reconnectee/mrc/mrc_web_backend:0.21'
     labels:
-      - "client=mrc"
-      - "backup=yes"
+      - client=mrc
+      - backup=yes
     volumes:
-      - mrc_back_db:/app/db
-      - mrc_back_static_0.14:/app/static
-      - mrc_back_media:/app/media
+      - 'mrc_back_db:/app/db'
+      - 'mrc_back_static_0.21:/app/static'
+      - 'mrc_back_media:/app/media'
     restart: always
     networks:
       - mrc_network
       - proxy
   mrc_frontend:
-    image: registry.gitlab.com/maison-reconnectee/mrc/mrc_web_frontend:0.7
+    image: 'registry.gitlab.com/maison-reconnectee/mrc/mrc_web_frontend:0.9'
     restart: always
     tty: true
     volumes:
-      - mrc_front_dist_0.7:/app
+      - 'mrc_front_dist_0.9:/app'
     networks:
       - mrc_network
       - proxy
   mrc_nginx:
-    image: registry.gitlab.com/maison-reconnectee/mrc/mrc_web_nginx:0.7
+    image: 'registry.gitlab.com/maison-reconnectee/mrc/mrc_web_nginx:0.7'
     volumes:
-      - mrc_front_dist_0.7:/var/www/html/front/dist
-      - mrc_back_static_0.14:/var/www/html/back/static
-      - mrc_back_media:/var/www/html/back/media
+      - 'mrc_front_dist_0.9:/var/www/html/front/dist'
+      - 'mrc_back_static_0.21:/var/www/html/back/static'
+      - 'mrc_back_media:/var/www/html/back/media'
     restart: always
     depends_on:
       - mrc_backend
@@ -49,22 +49,22 @@ services:
       - proxy
     deploy:
       labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.mrc_nginx.rule=Host(`mrc-app.numnprod.fr`, `mrc-back.numnprod.fr`)"
-        - "traefik.http.routers.mrc_nginx.entrypoints=web"
-        - "traefik.http.services.mrc_nginx.loadbalancer.server.port=80"
-        - "traefik.http.routers.mrc_nginx-secured.rule=Host(`mrc-app.numnprod.fr`, `mrc-back.numnprod.fr`)"
-        - "traefik.http.routers.mrc_nginx-secured.entrypoints=web-secured"
-        - "traefik.http.routers.mrc_nginx-secured.tls.certresolver=mytlschallenge"
-        - "traefik.http.middlewares.mrc_nginx-redirectscheme.redirectscheme.scheme=https"
-        - "traefik.http.middlewares.mrc_nginx-redirectscheme.redirectscheme.permanent=true"
-        - "traefik.http.routers.mrc_nginx.middlewares=test-redirectscheme@docker"
+        - traefik.enable=true
+        - 'traefik.http.routers.mrc_nginx.rule=Host(`mrc-app.numnprod.fr`, `mrc-back.numnprod.fr`)'
+        - traefik.http.routers.mrc_nginx.entrypoints=web
+        - traefik.http.services.mrc_nginx.loadbalancer.server.port=80
+        - 'traefik.http.routers.mrc_nginx-secured.rule=Host(`mrc-app.numnprod.fr`, `mrc-back.numnprod.fr`)'
+        - traefik.http.routers.mrc_nginx-secured.entrypoints=web-secured
+        - traefik.http.routers.mrc_nginx-secured.tls.certresolver=mytlschallenge
+        - traefik.http.middlewares.mrc_nginx-redirectscheme.redirectscheme.scheme=https
+        - traefik.http.middlewares.mrc_nginx-redirectscheme.redirectscheme.permanent=true
+        - traefik.http.routers.mrc_nginx.middlewares=test-redirectscheme@docker
 networks:
-    mrc_network: null
-    proxy:
-      external: true
+  mrc_network: null
+  proxy:
+    external: true
 volumes:
   mrc_back_db: null
-  mrc_back_static_0.14: null
+  mrc_back_static_0.21: null
   mrc_back_media: null
-  mrc_front_dist_0.7: null
+  mrc_front_dist_0.9: null
