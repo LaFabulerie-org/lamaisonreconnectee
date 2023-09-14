@@ -19,8 +19,9 @@ Se connecter en SSH au Raspberry:
 ```bash
 ssh mrc@<adresse IP du Raspberry>
 sudo apt update
-sudo apt full-upgrade
-sudo apt install git i2c-tools curl
+#(si vous avez des avertissements au moment de l'update) sudo apt-get --allow-releaseinfo-change updat
+sudo apt full-upgrade -y
+sudo apt install -y git i2c-tools curl
 sudo raspi-config
   - activer l'interface I2C
 ```
@@ -28,9 +29,9 @@ sudo raspi-config
 # Transformer le Raspberry en point d'accès Wi-Fi
 
 Les raspberry Pi 3B+ et 4 sont équipés d'un module Wi-Fi. Pour pouvoir les transformer 
-en point d'accès Wi-Fi, il faut équiper le Raspberry d'un module Wi-Fi supplémentaire via un port USB.
+en point d'accès Wi-Fi, il faut équiper le Raspberry d'un module Wi-Fi supplémentaire via un port USB. Pensez à bien installer les pilotes de votre carte Wifi supplémentaire.
 
-Suivre les instructions d'installation de  [RaspAP](https://raspap.com/#quick) : toujours mettre 'Yes'
+Suivre les instructions d'installation de  [RaspAP](https://raspap.com/#quick) : toujours mettre 'Yes' sauf pour OpenVPN et WireGuard
 
 Tout s'installe automatiquement. A la fin de l'installation :
 
@@ -39,7 +40,9 @@ sudo reboot
 ```
 
 A partir de maintenant, le Raspberry est un point d'accès Wi-Fi. Il n'est plus accessible avec l'adresse IP précédemment utilisée. 
-Il faut se connecter au point d'accès Wi-Fi créé par le Raspberry (par défaut : `raspi-webgui`).
+Il faut se connecter au point d'accès Wi-Fi créé par le Raspberry (par défaut : `raspi-webgui`, mot de passe : `ChangeMe`).
+
+Dans votre navigateur favori, accédez à l'adresse `http://10.3.141.1/`, utilisateur `admin`, mot de passe `secret`
 
 Dans l'onglet `Hotspot` :
 
@@ -51,13 +54,19 @@ Connecter le Raspberry à Internet soit en Ethernet (cable RJ45), soit en Wi-Fi 
 Si vous avez choisi de vous connecter en Wi-Fi a Internet, il faut configurer la priorité des connexions Wi-Fi dans l'onglet `DHCP Server`. 
 Mettre `305` dans le champs `Metric`  et redémarrer le raspberry.
 
+Rédemarrer le point d'accès.
+
+Vous pouvez maintenant vous connecter au point d'accès nommé `mrc-wifi`
+
 
 # Installation de Docker
 
 ```bash
+ssh mrc@10.3.141.1
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 rm get-docker.sh
+dockerd-rootless-setuptool.sh install
 sudo usermod -aG docker mrc
 ```
 
@@ -78,6 +87,8 @@ Ajouter la ligne suivante :
 Editer le fichier de configuration de démarrage de Docker :
 
 ```bash
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
 sudo nano /lib/systemd/system/docker.service
 ```
 
@@ -98,8 +109,6 @@ Redémarrer Docker :
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl restart docker
-sudo systemctl enable docker.service
-sudo systemctl enable containerd.service
 ```
 
 Installer Docker-compose :
