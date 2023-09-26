@@ -28,7 +28,7 @@ services:
       - back_static:/app/static
       - back_media:/app/media
     ports:
-      - '8080:8080'
+      - '8000:8000'
     restart: always
   mrc_nginx:
     image: mrc_nginx:latest
@@ -40,7 +40,7 @@ services:
       - back_media:/var/www/html/back/media
     ports:
       - '80:80'
-      - '8000:8000'
+      - '8080:8080'
     restart: always
 volumes:
   front_dist_b5: null
