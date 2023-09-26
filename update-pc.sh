@@ -1,6 +1,7 @@
 #!/bin/bash
 
 docker compose -f docker-compose-pc.yml stop
-git pull --recurse-submodules origin master
-docker compose -f docker-compose-pc.yml build
+git pull origin master
+git submodule foreach 'git pull origin master'
+./build_pc.sh
 docker compose -f docker-compose-pc.yml up -d
