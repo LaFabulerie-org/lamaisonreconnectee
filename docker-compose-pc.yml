@@ -31,7 +31,7 @@ services:
       - '8080:8080'
     restart: always
   mrc_nginx:
-    image: nginx:latest
+    image: mrc_nginx:latest
     container_name: mrc_nginx
     hostname: mrc_nginx
     volumes:
