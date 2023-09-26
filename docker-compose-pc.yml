@@ -1,9 +1,7 @@
 version: '3'
 services:
   mrc_printer:
-    build:
-      context: ./mrc-hardware
-      dockerfile: Dockerfile.printer
+    image: mrc_printer:latest
     container_name: mrc_printer
     hostname: mrc_printer
     environment:
@@ -14,10 +12,7 @@ services:
     command: python3 /printer/printer.py
     restart: always
   mrc_frontend:
-    build:
-      context: ./mrc-frontend
-      args:
-        STAGE: standalone
+    image: mrc_frontend:latest
     container_name: mrc_frontend
     hostname: mrc_frontend
     restart: always
@@ -25,10 +20,7 @@ services:
     volumes:
       - front_dist_b4:/app
   mrc_backend:
-    build:
-      context: ./mrc-backend
-      args:
-        STAGE: standalone
+    image: mrc_backend:latest
     container_name: mrc_backend
     hostname: mrc_backend
     volumes:
@@ -39,10 +31,7 @@ services:
       - '8080:8080'
     restart: always
   mrc_nginx:
-    build:
-      context: ./mrc-nginx
-      args:
-        STAGE: standalone
+    image: nginx:latest
     container_name: mrc_nginx
     hostname: mrc_nginx
     volumes:
