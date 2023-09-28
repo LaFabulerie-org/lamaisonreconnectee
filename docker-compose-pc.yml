@@ -18,14 +18,14 @@ services:
     restart: always
     tty: true
     volumes:
-      - front_dist_b14:/app
+      - front_dist_b15:/app
   mrc_backend:
     image: mrc_backend:latest
     container_name: mrc_backend
     hostname: mrc_backend
     volumes:
       - ./mrc-backend/db:/app/db
-      - back_static_b14:/app/static
+      - back_static_b15:/app/static
       - back_media:/app/media
     ports:
       - '8000:8000'
@@ -35,14 +35,14 @@ services:
     container_name: mrc_nginx
     hostname: mrc_nginx
     volumes:
-      - front_dist_b14:/var/www/html/front/dist
-      - back_static_b14:/var/www/html/back/static
+      - front_dist_b15:/var/www/html/front/dist
+      - back_static_b15:/var/www/html/back/static
       - back_media:/var/www/html/back/media
     ports:
       - '80:80'
       - '8080:8080'
     restart: always
 volumes:
-  front_dist_b14: null
-  back_static_b14: null
+  front_dist_b15: null
+  back_static_b15: null
   back_media: null
