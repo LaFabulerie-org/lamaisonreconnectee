@@ -25,7 +25,7 @@ services:
     hostname: mrc_backend
     volumes:
       - ./mrc-backend/db:/app/db
-      - back_static:/app/static
+      - back_static_b13:/app/static
       - back_media:/app/media
     ports:
       - '8000:8000'
@@ -36,7 +36,7 @@ services:
     hostname: mrc_nginx
     volumes:
       - front_dist_b13:/var/www/html/front/dist
-      - back_static:/var/www/html/back/static
+      - back_static_b13:/var/www/html/back/static
       - back_media:/var/www/html/back/media
     ports:
       - '80:80'
@@ -44,5 +44,5 @@ services:
     restart: always
 volumes:
   front_dist_b13: null
-  back_static: null
+  back_static_b13: null
   back_media: null
