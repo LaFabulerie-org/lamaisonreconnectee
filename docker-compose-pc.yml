@@ -18,7 +18,7 @@ services:
     restart: always
     tty: true
     volumes:
-      - front_dist_b9:/app
+      - front_dist_b10:/app
   mrc_backend:
     image: mrc_backend:latest
     container_name: mrc_backend
@@ -35,7 +35,7 @@ services:
     container_name: mrc_nginx
     hostname: mrc_nginx
     volumes:
-      - front_dist_b9:/var/www/html/front/dist
+      - front_dist_b10:/var/www/html/front/dist
       - back_static:/var/www/html/back/static
       - back_media:/var/www/html/back/media
     ports:
@@ -43,6 +43,6 @@ services:
       - '8080:8080'
     restart: always
 volumes:
-  front_dist_b9: null
+  front_dist_b10: null
   back_static: null
   back_media: null
