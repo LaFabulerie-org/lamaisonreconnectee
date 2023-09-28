@@ -43,6 +43,6 @@ services:
       - '8080:8080'
     restart: always
 volumes:
-  front_dist_b13: null
-  back_static_b13: null
+  front_dist_b14: null
+  back_static_b14: null
   back_media: null
