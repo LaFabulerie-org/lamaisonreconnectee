@@ -1,7 +1,7 @@
 #!/bin/bash
 
-BACK=0.22
-FRONT=0.13
+BACK=0.26
+FRONT=0.17
 NGINX=0.7
 
 docker build --build-arg="STAGE=web" -t mrc_web_backend:${BACK} mrc-backend
