@@ -16,7 +16,6 @@ services:
    hostname: mrc_hardware
    privileged: true
    depends_on:
-     - mosquitto
      - pigpiod
    command: python3 /hw/main.py
    restart: always
