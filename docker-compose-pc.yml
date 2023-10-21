@@ -1,48 +1,56 @@
 version: '3'
 services:
+  mrc_mosquitto:
+    image: 'mrc_mosquitto:latest'
+    container_name: mrc_mosquitto
+    hostname: mrc_mosquitto
+    ports:
+      - '1883:1883'
+      - '9001:9001'
+    restart: always
   mrc_printer:
-    image: mrc_printer:latest
+    image: 'mrc_printer:latest'
     container_name: mrc_printer
     hostname: mrc_printer
     environment:
-      - MQTT_HOST=10.3.141.1
+      - MQTT_HOST=mrc_mosquitto
       - PRINTER_VENDOR_ID=1fc9
       - PRINTER_PRODUCT_ID=2016
     privileged: true
     command: python3 /printer/printer.py
     restart: always
   mrc_frontend:
-    image: mrc_frontend:latest
+    image: 'mrc_frontend:latest'
     container_name: mrc_frontend
     hostname: mrc_frontend
     restart: always
     tty: true
     volumes:
-      - front_dist_b16:/app
+      - 'front_dist_b18:/app'
   mrc_backend:
-    image: mrc_backend:latest
+    image: 'mrc_backend:latest'
     container_name: mrc_backend
     hostname: mrc_backend
     volumes:
-      - ./mrc-backend/db:/app/db
-      - back_static_b16:/app/static
-      - back_media:/app/media
+      - './mrc-backend/db:/app/db'
+      - 'back_static_b18:/app/static'
+      - 'back_media:/app/media'
     ports:
       - '8000:8000'
     restart: always
   mrc_nginx:
-    image: mrc_nginx:latest
+    image: 'mrc_nginx:latest'
     container_name: mrc_nginx
     hostname: mrc_nginx
     volumes:
-      - front_dist_b16:/var/www/html/front/dist
-      - back_static_b16:/var/www/html/back/static
-      - back_media:/var/www/html/back/media
+      - 'front_dist_b18:/var/www/html/front/dist'
+      - 'back_static_b18:/var/www/html/back/static'
+      - 'back_media:/var/www/html/back/media'
     ports:
       - '80:80'
       - '8080:8080'
     restart: always
 volumes:
-  front_dist_b16: null
-  back_static_b16: null
+  front_dist_b18: null
+  back_static_b18: null
   back_media: null
