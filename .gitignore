@@ -1,2 +1,4 @@
 .idea/
 /mrc-website/
+__pycache__
+*.log
