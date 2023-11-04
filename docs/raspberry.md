@@ -28,6 +28,16 @@ sudo systemctl enable pigpiod
 sudo systemctl start pigpiod
 ```
 
+Ajout des ports I2C virtuels:
+	
+```bash
+sudo nano /boot/config.txt
+    (vers la ligne 42)
+    dtparam=i2c_arm=on
+    dtoverlay=i2c-gpio,bus=3,i2c_gpio_delay_us=1,i2c_gpio_sda=4,i2c_gpio_scl=27
+    dtoverlay=i2c-gpio,bus=4,i2c_gpio_delay_us=1,i2c_gpio_sda=21,i2c_gpio_scl=13
+```
+
 # Transformer le Raspberry en point d'accès Wi-Fi
 
 Les raspberry Pi 3B+ et 4 sont équipés d'un module Wi-Fi. Pour pouvoir les transformer 
