@@ -13,32 +13,32 @@ services:
       - mrc_network
       - proxy
   mrc_backend:
-    image: 'registry.gitlab.com/maison-reconnectee/mrc/mrc_web_backend:0.29'
+    image: 'registry.gitlab.com/maison-reconnectee/mrc/mrc_web_backend:0.31'
     labels:
       - client=mrc
       - backup=yes
     volumes:
       - 'mrc_back_db:/app/db'
-      - 'mrc_back_static_0.29:/app/static'
+      - 'mrc_back_static_0.31:/app/static'
       - 'mrc_back_media:/app/media'
     restart: always
     networks:
       - mrc_network
       - proxy
   mrc_frontend:
-    image: 'registry.gitlab.com/maison-reconnectee/mrc/mrc_web_frontend:0.21'
+    image: 'registry.gitlab.com/maison-reconnectee/mrc/mrc_web_frontend:0.22'
     restart: always
     tty: true
     volumes:
-      - 'mrc_front_dist_0.21:/app'
+      - 'mrc_front_dist_0.22:/app'
     networks:
       - mrc_network
       - proxy
   mrc_nginx:
     image: 'registry.gitlab.com/maison-reconnectee/mrc/mrc_web_nginx:0.7'
     volumes:
-      - 'mrc_front_dist_0.21:/var/www/html/front/dist'
-      - 'mrc_back_static_0.29:/var/www/html/back/static'
+      - 'mrc_front_dist_0.22:/var/www/html/front/dist'
+      - 'mrc_back_static_0.31:/var/www/html/back/static'
       - 'mrc_back_media:/var/www/html/back/media'
     restart: always
     depends_on:
@@ -65,6 +65,6 @@ networks:
     external: true
 volumes:
   mrc_back_db: null
-  mrc_back_static_0.29: null
+  mrc_back_static_0.31: null
   mrc_back_media: null
-  mrc_front_dist_0.21: null
+  mrc_front_dist_0.22: null
