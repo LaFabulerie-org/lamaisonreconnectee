@@ -84,7 +84,7 @@ sudo usermod -aG docker mrc
 - Créer le fichier `src/environments/environment.ts` à la racine du répertoire `mrc-frontend` en se basant sur le fichier `src/environments/environment.example.ts`
 
 ```bash
-docker compose -f docker-compose-pc.yml build
+./build_pc.sh
 docker compose -f docker-compose-pc.yml up -d
 ```
 

@@ -21,7 +21,7 @@ ssh mrc@<adresse IP du Raspberry>
 sudo apt update
 #(si vous avez des avertissements au moment de l'update) sudo apt-get --allow-releaseinfo-change update
 sudo apt full-upgrade -y
-sudo apt install -y git i2c-tools curl pigpio supervisor
+sudo apt install -y git i2c-tools curl pigpio supervisor python3-pip
 sudo raspi-config
   - activer l'interface I2C
 sudo systemctl enable pigpiod
