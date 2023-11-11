@@ -90,14 +90,14 @@ A la racine du répertoire `mrc`, lancer la commande suivante :
 docker compose -f docker-compose-pc.yml up -d
 ```
 
-## Création d'un super-utilisateur pour se connecter à l'interface d'administration 
+Création d'un super-utilisateur pour se connecter aux interfaces d'administration 
 
 ```bash
 docker compose -f docker-compose-pc.yml run mrc_backend python manage.py createsuperuser
 ```
 Attention, le nom d'utilisateur et l'email doivent etre identique.
 
-### Accès à votre maison reconnectée
+# Accès à votre maison reconnectée
 
 - Frontend : `http://<IP_PC_PRINCIPAL>`
 - Backoffice 'animateur' : `http://<IP_PC_PRINCIPAL>/<admin`
