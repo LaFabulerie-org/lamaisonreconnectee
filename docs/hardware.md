@@ -24,4 +24,25 @@
 |  <img  src="img/gpio_expansion.jpg"  width="100px"/>    | Carte d'extension des GPIO. Permet d'avoir plus d'entrée-sorties | 3 | [Lien](https://www.amazon.fr/gp/product/B08DFNR2JW/ref=ox_sc_act_title_10?smid=A22SB6W8K59090&psc=1) |
 
 
+Pour faciliter le montage des cartes d'extensions, il est recommandé de réaliser un montage sur carte d'essai. Pour cela, il faut souder des connecteurs mâles sur la carte d'extension et des connecteurs femelles sur la carte d'essai. 
+
+Priviliégier des connecteurs de type 'bornier'. Cela permet de brancher et débrancher facilement les fils.
+
+
+<img  src="img/ctrl_lights_1.jpg"  height="200px"/>
+<img  src="img/ctrl_lights_2.jpg"  height="200px"/> 
+<img  src="img/ctrl_lights_3.jpg"  height="200px"/> 
+
+
+## Affectation des lumières aux objets
+
+On peux remarquer que les connecteurs sont numérotés. 
+
+Dans l'administration de l'application, il faut donc affecter les lumières aux connecteurs correspondants.
+
+Rendez-vous sur `http://<IP_PC_PRINCIPAL>:8080/admin/core/item/` et compléter les champs relative aux lumières
+
+
+<img  src="img/admin_lights.png"  width="1000px"/>
+
 

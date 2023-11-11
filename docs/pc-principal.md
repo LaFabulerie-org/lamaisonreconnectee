@@ -80,8 +80,10 @@ sudo usermod -aG docker mrc
 
 # Installation de l'application
 
-- Créer le fichier `.env.standalone` à la racine du répertoire `mrc-backend` en se basant sur le fichier `.env.example`
+- Créer le fichier `.env.standalone` à la racine du répertoire `mrc-backend` en se basant sur le fichier `.env.example`. (Attention, sous Linux, les fichiers commençant par un `.` sont cachés)
 - Créer le fichier `src/environments/environment.ts` à la racine du répertoire `mrc-frontend` en se basant sur le fichier `src/environments/environment.example.ts`
+
+A la racine du répertoire `mrc`, lancer la commande suivante :
 
 ```bash
 ./build_pc.sh
@@ -94,3 +96,9 @@ docker compose -f docker-compose-pc.yml up -d
 docker compose -f docker-compose-pc.yml run mrc_backend python manage.py createsuperuser
 ```
 Attention, le nom d'utilisateur et l'email doivent etre identique.
+
+### Accès à votre maison reconnectée
+
+- Frontend : `http://<IP_PC_PRINCIPAL>`
+- Backoffice 'animateur' : `http://<IP_PC_PRINCIPAL>/<admin`
+- Backoffice 'administrateur' (django) : `http://<IP_PC_PRINCIPAL>:8080/admin`
