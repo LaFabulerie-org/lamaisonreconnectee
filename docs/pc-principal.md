@@ -78,10 +78,24 @@ Ne pas oublier d'ajouter l'utilisateur `mrc` au groupe `docker` :
 sudo usermod -aG docker mrc
 ```
 
-# Installation de l'application
+# Configuration de l'application
 
 - Créer le fichier `.env.standalone` à la racine du répertoire `mrc-backend` en se basant sur le fichier `.env.example`. (Attention, sous Linux, les fichiers commençant par un `.` sont cachés)
-- Créer le fichier `src/environments/environment.ts` à la racine du répertoire `mrc-frontend` en se basant sur le fichier `src/environments/environment.example.ts`
+- Créer le fichier `environment.ts` à la racine du répertoire `mrc-frontend/src/environments/` en se basant sur le fichier `src/environments/environment.example.ts`
+
+Différente valeurs sont à adapter en fonction de votre configuration :
+
+| Type d'installation |  Backend <br> (fichier mrc-backend/.env.standalone) | Frontend <br> (fichier mrc-frontend/src/environments/environment.ts) |
+|---------------------|-----------------------------------------------------|---------------------------------------------------------------------|
+| Web | <ul><li>`EXECUTION_MODE` = `WEB`</li><li>`ORIGINS` = la liste des URLs frontend autorisées à se connecter au backend, ex : https://app.lamaisonreconnectee.fr</li><li>`SENDINBLUE_API_KEY` = la clé d'API fournit par [Sendinblue/Brevo](https://www.brevo.com/fr/) pour l'envoi d'email</li></ul>  | <ul><li>`serverHost` = l'URL qui permet d'accèder au backend</li><li>`isStandalone` = `false` (ne peut pas être `true`)<li>`houseless` = true (ne peut pas être `false`</li><li>`apiKey` = la clé d'API généré sur dans l'admin du backend</li></ul> |
+| Standalone avec maquette physique | <ul><li>`EXECUTION_MODE` = `STANDALONE`</li><li>`ORIGINS` = Idem config web, ex. : http://192.168.1.42 ou encore http://10.3.141.203</li><li>`SENDINBLUE_API_KEY` = Idem config web</li></ul> |<ul><li>`serverHost` = idem config web, il y a de forte chance qu'ici l'url sous de la forme `http://<ADRESSE_IP_SERVER>:<PORT_SERVER>`, ex. http://192.168.1.15:8080</li><li>`isStandalone` = `true` (ne peut pas être `false`)<li>`houseless` = `false` (ne peut pas être `true`</li><li>`apiKey` = `null`, ne sert pas.</li></ul> | 
+| Standalone sans maquette physique | Idem que avec maquette | Idem que avec maquette mais `houseless` = `true` |
+
+Il ne peut il y aucune autre combinaison possible.
+
+
+# Installation de l'application
+
 
 A la racine du répertoire `mrc`, lancer la commande suivante :
 
