@@ -13,32 +13,32 @@ services:
       - mrc_network
       - proxy
   mrc_backend:
-    image: 'registry.gitlab.com/maison-reconnectee/mrc/mrc_web_backend:0.32'
+    image: 'registry.gitlab.com/maison-reconnectee/mrc/mrc_web_backend:0.33'
     labels:
       - client=mrc
       - backup=yes
     volumes:
       - 'mrc_back_db:/app/db'
-      - 'mrc_back_static_0.32:/app/static'
+      - 'mrc_back_static_0.33:/app/static'
       - 'mrc_back_media:/app/media'
     restart: always
     networks:
       - mrc_network
       - proxy
   mrc_frontend:
-    image: 'registry.gitlab.com/maison-reconnectee/mrc/mrc_web_frontend:0.23'
+    image: 'registry.gitlab.com/maison-reconnectee/mrc/mrc_web_frontend:0.24'
     restart: always
     tty: true
     volumes:
-      - 'mrc_front_dist_0.23:/app'
+      - 'mrc_front_dist_0.24:/app'
     networks:
       - mrc_network
       - proxy
   mrc_nginx:
-    image: 'registry.gitlab.com/maison-reconnectee/mrc/mrc_web_nginx:0.7'
+    image: 'registry.gitlab.com/maison-reconnectee/mrc/mrc_web_nginx:0.8'
     volumes:
-      - 'mrc_front_dist_0.23:/var/www/html/front/dist'
-      - 'mrc_back_static_0.32:/var/www/html/back/static'
+      - 'mrc_front_dist_0.24:/var/www/html/front/dist'
+      - 'mrc_back_static_0.33:/var/www/html/back/static'
       - 'mrc_back_media:/var/www/html/back/media'
     restart: always
     depends_on:
@@ -50,10 +50,10 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - 'traefik.http.routers.mrc_nginx.rule=Host(`mrc-app.numnprod.fr`, `mrc-back.numnprod.fr`)'
+        - 'traefik.http.routers.mrc_nginx.rule=Host(`app.lamaisonreconnectee.fr`, `back.lamaisonreconnectee.fr`)'
         - traefik.http.routers.mrc_nginx.entrypoints=web
         - traefik.http.services.mrc_nginx.loadbalancer.server.port=80
-        - 'traefik.http.routers.mrc_nginx-secured.rule=Host(`mrc-app.numnprod.fr`, `mrc-back.numnprod.fr`)'
+        - 'traefik.http.routers.mrc_nginx-secured.rule=Host(`app.lamaisonreconnectee.fr`, `app.lamaisonreconnectee.fr`)'
         - traefik.http.routers.mrc_nginx-secured.entrypoints=web-secured
         - traefik.http.routers.mrc_nginx-secured.tls.certresolver=mytlschallenge
         - traefik.http.middlewares.mrc_nginx-redirectscheme.redirectscheme.scheme=https
@@ -65,6 +65,6 @@ networks:
     external: true
 volumes:
   mrc_back_db: null
-  mrc_back_static_0.32: null
+  mrc_back_static_0.33: null
   mrc_back_media: null
-  mrc_front_dist_0.23: null
+  mrc_front_dist_0.24: null
