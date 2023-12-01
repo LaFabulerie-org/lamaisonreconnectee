@@ -53,7 +53,7 @@ services:
         - 'traefik.http.routers.mrc_nginx.rule=Host(`app.lamaisonreconnectee.fr`, `back.lamaisonreconnectee.fr`)'
         - traefik.http.routers.mrc_nginx.entrypoints=web
         - traefik.http.services.mrc_nginx.loadbalancer.server.port=80
-        - 'traefik.http.routers.mrc_nginx-secured.rule=Host(`app.lamaisonreconnectee.fr`, `app.lamaisonreconnectee.fr`)'
+        - 'traefik.http.routers.mrc_nginx-secured.rule=Host(`app.lamaisonreconnectee.fr`, `back.lamaisonreconnectee.fr`)'
         - traefik.http.routers.mrc_nginx-secured.entrypoints=web-secured
         - traefik.http.routers.mrc_nginx-secured.tls.certresolver=mytlschallenge
         - traefik.http.middlewares.mrc_nginx-redirectscheme.redirectscheme.scheme=https
