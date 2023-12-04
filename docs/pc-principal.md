@@ -76,6 +76,7 @@ Ne pas oublier d'ajouter l'utilisateur `mrc` au groupe `docker` :
 
 ```bash
 sudo usermod -aG docker mrc
+sudo chmod 666 /var/run/docker.sock
 ```
 
 # Configuration de l'application
@@ -83,7 +84,7 @@ sudo usermod -aG docker mrc
 - Créer le fichier `.env.standalone` à la racine du répertoire `mrc-backend` en se basant sur le fichier `.env.example`. (Attention, sous Linux, les fichiers commençant par un `.` sont cachés)
 - Créer le fichier `environment.ts` à la racine du répertoire `mrc-frontend/src/environments/` en se basant sur le fichier `src/environments/environment.example.ts`
 
-Différente valeurs sont à adapter en fonction de votre configuration :
+Différentes valeurs sont à adapter en fonction de votre configuration :
 
 | Type d'installation |  Backend <br> (fichier mrc-backend/.env.standalone) | Frontend <br> (fichier mrc-frontend/src/environments/environment.ts) |
 |---------------------|-----------------------------------------------------|---------------------------------------------------------------------|
