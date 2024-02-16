@@ -4,6 +4,3 @@
 [submodule "mrc-frontend"]
 	path = mrc-frontend
 	url = https://gitlab-interne.dev.klee.lan.net/fabulerie/mrc-frontend.git
-[submodule "mrc-hardware"]
-	path = mrc-hardware
-	url = https://gitlab.com/maison-reconnectee/mrc-hardware.git
