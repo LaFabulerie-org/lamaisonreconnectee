@@ -1,6 +1,6 @@
 [submodule "mrc-backend"]
 	path = mrc-backend
-	url = git@gitlab-interne.dev.klee.lan.net:fabulerie/mrc-backend.git
+	url = git@github.com:LaFabulerie/mrc-backend.git
 [submodule "mrc-frontend"]
 	path = mrc-frontend
-	url = git@gitlab-interne.dev.klee.lan.net:fabulerie/mrc-frontend.git
+	url = git@github.com:LaFabulerie/mrc-frontend.git
