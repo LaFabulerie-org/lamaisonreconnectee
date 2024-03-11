@@ -17,6 +17,8 @@ services:
       - 'mrc_back_db:/app/db'
       - 'mrc_back_static:/app/static'
       - 'mrc_back_media:/app/media'
+      - '/dev:/dev'
+    privileged: true
     ports:
       - '8000:8000'
   mrc_nginx:
