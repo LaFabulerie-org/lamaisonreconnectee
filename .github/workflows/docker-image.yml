@@ -9,6 +9,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build Docker images
       run: |
+        git submodule set-url -- mrc-backend https://github.com/LaFabulerie/mrc-backend.git
+        git submodule set-url -- mrc-frontend https://github.com/LaFabulerie/mrc-frontend.git
         git submodule init
         git submodule update
         docker build mrc-backend --build-arg="STAGE=web" -t mrc_backend:$(date +%s)
