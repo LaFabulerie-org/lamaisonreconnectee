@@ -1,0 +1,44 @@
+version: '3'
+services:
+  mrc_frontend:
+    image: 'mrc_frontend'
+    container_name: mrc_frontend
+    hostname: mrc_frontend
+    restart: always
+    tty: true
+    volumes:
+      - 'mrc_front_dist:/app'
+  mrc_backend:
+    image: 'mrc_backend'
+    container_name: mrc_backend
+    hostname: mrc_backend
+    restart: always
+    volumes:
+      - 'mrc_back_db:/app/db'
+      - 'mrc_back_static:/app/static'
+      - 'mrc_back_media:/app/media'
+      - '/dev:/dev'
+    privileged: true
+    ports:
+      - '8000:8000'
+  mrc_nginx:
+    image: 'mrc_nginx'
+    container_name: mrc_nginx
+    hostname: mrc_nginx
+    restart: always
+    volumes:
+      - 'mrc_front_dist:/var/www/html/front/dist'
+      - 'mrc_back_static:/var/www/html/back/static'
+      - 'mrc_back_media:/var/www/html/back/media'
+    ports:
+      - '80:80'
+      - '8080:8080'
+volumes:
+  mrc_back_db:
+    external: true
+  mrc_back_static:
+    external: true
+  mrc_back_media:
+    external: true
+  mrc_front_dist:
+    external: true
