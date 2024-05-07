@@ -17,9 +17,9 @@ jobs:
           git submodule set-url -- mrc-frontend https://github.com/LaFabulerie/mrc-frontend.git
           git submodule init
           git submodule update
-          docker build mrc-backend --build-arg="STAGE=web" -t ghcr.io/${{ github.repository_owner }}/mrc_backend:$(date +'%d%m%Y%H')
-          docker build mrc-frontend --build-arg="STAGE=web" -t ghcr.io/${{ github.repository_owner }}/mrc_frontend:$(date +'%d%m%Y%H')
-          docker build mrc-nginx --build-arg="STAGE=web" -t ghcr.io/${{ github.repository_owner }}/mrc_nginx:$(date +'%d%m%Y%H')
+          docker build mrc-backend --build-arg="STAGE=web" -t ghcr.io/${{ github.repository_owner }}/mrc_backend:$(date +'%d%m%Y')
+          docker build mrc-frontend --build-arg="STAGE=web" -t ghcr.io/${{ github.repository_owner }}/mrc_frontend:$(date +'%d%m%Y')
+          docker build mrc-nginx --build-arg="STAGE=web" -t ghcr.io/${{ github.repository_owner }}/mrc_nginx:$(date +'%d%m%Y')
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
@@ -30,9 +30,9 @@ jobs:
 
       - name: Push Docker images to GitHub Container Registry
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/mrc_backend:$(date +'%d%m%Y%H')
-          docker push ghcr.io/${{ github.repository_owner }}/mrc_frontend:$(date +'%d%m%Y%H')
-          docker push ghcr.io/${{ github.repository_owner }}/mrc_nginx:$(date +'%d%m%Y%H')
+          docker push ghcr.io/${{ github.repository_owner }}/mrc_backend:$(date +'%d%m%Y')
+          docker push ghcr.io/${{ github.repository_owner }}/mrc_frontend:$(date +'%d%m%Y')
+          docker push ghcr.io/${{ github.repository_owner }}/mrc_nginx:$(date +'%d%m%Y')
   deploy_to_ovh:
     runs-on: ubuntu-latest
     needs: [build]
@@ -46,4 +46,4 @@ jobs:
           script: |
             docker login --username ${{ github.actor }} --password ${{ secrets.GH_PAT }} ghcr.io
             cd /home/debian/lamaisonreconnectee
-            docker compose up -d
+            docker compose -f docker-compose-web.yml up -d
