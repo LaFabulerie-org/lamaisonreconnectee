@@ -28,9 +28,8 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GH_PAT }}
 
-      - name: Tag Docker images with timestamp
+      - name: Tag Docker images with date
         run: |
-          timestamp=$(date +%s)
           docker tag mrc_backend ghcr.io/${{ github.repository_owner }}/mrc_backend:$(date +%s)
           docker tag mrc_frontend ghcr.io/${{ github.repository_owner }}/mrc_frontend:$(date +%s)
           docker tag mrc_nginx ghcr.io/${{ github.repository_owner }}/mrc_nginx:$(date +%s)
