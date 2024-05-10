@@ -46,4 +46,4 @@ jobs:
           script: |
             docker login --username ${{ github.actor }} --password ${{ secrets.GH_PAT }} ghcr.io
             cd /home/debian/lamaisonreconnectee
-            docker compose -f docker-compose-web.yml up -d
+            ./run.sh
