@@ -7,4 +7,3 @@
 # Description de la [partie logicielle](docs/software.md)
 
 # Description de la [partie matérielle](docs/hardware.md)
-
