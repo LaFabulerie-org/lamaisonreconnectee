@@ -52,4 +52,4 @@ jobs:
             docker login --username ${{ github.actor }} --password ${{ secrets.GH_PAT }} ghcr.io
             export COMMIT_HASH="${COMMIT_HASH}"
             cd /home/debian/lamaisonreconnecte
-            ./run.sh
+            ./run.sh $COMMIT_HASH
