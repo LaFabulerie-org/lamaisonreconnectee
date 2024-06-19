@@ -13,6 +13,9 @@ jobs:
       - name: Get the latest commit hash
         id: vars
         run: echo "COMMIT_HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - name: DEBUG
+        run: echo "$COMMIT_HASH"
       - name: SSH into OVH VM and deploy Docker image
         uses: appleboy/ssh-action@master
         with:
@@ -21,6 +24,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             docker login --username ${{ github.actor }} --password ${{ secrets.GH_PAT }} ghcr.io
-            echo "$COMMIT_HASH"
             cd /home/debian/lamaisonreconnecte
             ./run.sh 
