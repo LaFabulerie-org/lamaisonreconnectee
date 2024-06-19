@@ -5,17 +5,39 @@ on:
     branches: [ "main" ]
 
 jobs:
-  deploy_to_ovh:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
       - name: Get the latest commit hash
         id: vars
         run: echo "COMMIT_HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - name: DEBUG
-        run: echo "$COMMIT_HASH"
+      - name: Build Docker images
+        run: |
+          git submodule set-url -- mrc-backend https://github.com/LaFabulerie/mrc-backend.git
+          git submodule set-url -- mrc-frontend https://github.com/LaFabulerie/mrc-frontend.git
+          git submodule init
+          git submodule update
+          docker build --no-cache mrc-backend --build-arg="STAGE=web" -t ghcr.io/${{ github.repository_owner }}/mrc_backend:${{ env.COMMIT_HASH }}
+          docker build --no-cache mrc-frontend --build-arg="STAGE=web" -t ghcr.io/${{ github.repository_owner }}/mrc_frontend:${{ env.COMMIT_HASH }}
+          docker build --no-cache mrc-nginx --build-arg="STAGE=web" -t ghcr.io/${{ github.repository_owner }}/mrc_nginx:${{ env.COMMIT_HASH }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GH_PAT }}
+
+      - name: Push Docker images to GitHub Container Registry
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/mrc_backend:${{ env.COMMIT_HASH }}
+          docker push ghcr.io/${{ github.repository_owner }}/mrc_frontend:${{ env.COMMIT_HASH }}
+          docker push ghcr.io/${{ github.repository_owner }}/mrc_nginx:${{ env.COMMIT_HASH }}
+
       - name: SSH into OVH VM and deploy Docker image
         uses: appleboy/ssh-action@master
         with:
@@ -24,5 +46,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             docker login --username ${{ github.actor }} --password ${{ secrets.GH_PAT }} ghcr.io
+            export COMMIT_HASH="${COMMIT_HASH}"
             cd /home/debian/lamaisonreconnecte
-            ./run.sh 
+            ./run.sh $COMMIT_HASH
