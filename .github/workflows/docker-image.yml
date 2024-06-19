@@ -51,4 +51,5 @@ jobs:
           script: |
             docker login --username ${{ github.actor }} --password ${{ secrets.GH_PAT }} ghcr.io
             cd /home/debian/lamaisonreconnecte
-            ./run.sh ${{ env.COMMIT_HASH }}
+            sed -i "s/<commit_hash>/$COMMIT_HASH/" run.sh
+            ./run.sh
